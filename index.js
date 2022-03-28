@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
+
 
 const app = express();
 const port = 3100;
@@ -11,6 +13,7 @@ let corsOption = {
     credential: true,
 }
 
+app.use(morgan('dev'));
 app.use(cors(corsOption));
 app.use(cookieParser());
 
