@@ -18,6 +18,6 @@ app.get('/', (req, res) => {
     res.send('Hello Node.js');
 });
 
-app.listen(part, () => {
-    console.log('Listening..(서버 실행중...)');
+app.listen(port, () => {
+    console.log('Listening...(서버 실행중...)');
 })
