@@ -3,11 +3,11 @@ dotenv.config();
 
 module.exports = {
   development: {
-    username: 'root',
+    username: "root",
     password: process.env.DB_PASSWORD,
-    database: "database_development",
+    database: "pet",
     host: "127.0.0.1",
-    port: process.env.DB_PORT,
+    // port: process.env.DB_PORT,
     dialect: "mysql"
   },
   test: {
@@ -15,7 +15,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: "database_test",
     host: "127.0.0.1",
-    port: process.env.DB_PORT,
+    // port: process.env.DB_PORT,
     dialect: "mysql"
   },
   production: {
@@ -23,7 +23,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: "database_production",
     host: "127.0.0.1",
-    port: process.env.DB_PORT,
+    // port: process.env.DB_PORT,
     dialect: "mysql"
   }
 }
