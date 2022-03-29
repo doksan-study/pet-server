@@ -14,22 +14,20 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init({
     userId: {
-      primaryKey: true,
       type: DataTypes.INTEGER,
+      primaryKey: true
     },
-    userName: DataTypes.STRING(100),
-    userEmail: DataTypes.STRING(100),
-    userPassword: DataTypes.STRING(100),
-    userNickname: DataTypes.STRING(100),
-    userPhone: DataTypes.STRING(100),
-    userProfileImg: DataTypes.STRING(100),
+    userName: DataTypes.STRING,
+    userEmail: DataTypes.STRING,
+    userPassword: DataTypes.STRING,
+    userNickname: DataTypes.STRING,
+    userPhone: DataTypes.STRING,
+    userProfileImg: DataTypes.STRING,
     userAge: DataTypes.INTEGER,
     userGender: DataTypes.INTEGER,
-    userAddress: DataTypes.STRING(100)
+    userAddress: DataTypes.STRING
   }, {
     sequelize,
-    charset: 'utf8mb4',
-    collate: 'utf8mb4_general_ci', //이모티콘 저장
     modelName: 'User',
   });
   return User;

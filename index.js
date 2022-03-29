@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const routes = require('./routes');
 const { sequelize } = require('./models');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -15,7 +16,7 @@ const corsOption = {
     credential: true,
 }
 
-sequelize.sync({ alter: false })
+sequelize.sync()
     .then(() => {
         console.log("DB 연결 성공");
     })
@@ -24,15 +25,19 @@ sequelize.sync({ alter: false })
         console.log(error.message);
     })
 
+app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors(corsOption));
 app.use(cookieParser());
 
+app.use('/', routes)
+
 app.get('/', (req, res) => {
-    console.log('Cookies: ', req.cookies);
     return res.status(200).send('Hello Node.js');
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log('Listening...(서버 실행중...)', port);
 })
+
+module.exports = server;
