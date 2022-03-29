@@ -6,7 +6,7 @@ const app = express();
 const port = 3100;
 
 let corsOption = {
-    origin: ['http://localhost:8080'],
+    origin: ['http://localhost:8081'],
     credential: true,
 }
 
