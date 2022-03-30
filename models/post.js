@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    postContent: DataTypes.STRING
+    postContent: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Post',
