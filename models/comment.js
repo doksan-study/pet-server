@@ -11,8 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.Comment.belongsTo(models.Post, {foreignKey: 'postId'})
     }
-  }
+  };
   Comment.init({
     commentId: {
       primaryKey: true,
@@ -22,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Comment',
+    tableName: 'comments',
+    charset: 'utf8mb4',
+    collate: 'utf8mb4_general_ci', // 이모티콘 저장
   });
   return Comment;
 };
