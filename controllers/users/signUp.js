@@ -5,9 +5,11 @@ const crypto = require("crypto-js");
 
 module.exports = (async (req, res) => {
   try {
+    console.log('req', req.body);
     const { userName, userEmail, userPassword, userNickname, userPhone, userProfileImg, userAge, userGender, userAddress } = req.body;
 
     const emailCheck = await User.findOne({ where: { userEmail } }); //중복되는 이메일이 있는 유저가 있는지 확인
+    console.log('emailCheck', emailCheck);
     if (emailCheck) {
       return res.status(400).send({
         message: "중복되는 이메일이 존재합니다.",

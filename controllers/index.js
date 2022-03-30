@@ -1,3 +1,4 @@
 module.exports = {
-  userSignUp: require("./users/signUp")
+  userSignUp: require("./users/signUp"),
+  communityPost: require("./posts/communityPost"),
 };
