@@ -1,10 +1,15 @@
 const { Router } = require("express");
-const { userSignUp, userSignIn } = require("../controllers");
-const tryCatch = require("../middlewares/tryCatch")
+const multer = require('multer');
 
 const router = Router();
 
-router.post("/signup", tryCatch(userSignUp));
-router.post("/signin", tryCatch(userSignIn));
+const { userSignUp, userSignIn } = require("../controllers");
+const { isNotLoggedIn } = require('../middlewares/auth');
+const tryCatch = require("../middlewares/tryCatch");
+
+const upload = multer({ dest: "files/" });
+
+router.post("/signup", isNotLoggedIn, upload.single("userProfileImg"), tryCatch(userSignUp));
+router.post("/signin", isNotLoggedIn, tryCatch(userSignIn));
 
 module.exports = router;

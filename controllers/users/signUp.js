@@ -2,7 +2,8 @@ const { User } = require("../../models");
 const crypto = require("crypto-js");
 
 module.exports = (async (req, res) => {
-  const { userName, userEmail, userPassword, userNickname, userPhone, userProfileImg, userAge, userGender, userAddress } = req.body;
+  const { userName, userEmail, userPassword, userNickname, userPhone, userAge, userGender, userAddress } = req.body;
+  const userProfileImg = req.file.path;
 
   const emailCheck = await User.findOne({ where: { userEmail } }); //중복되는 이메일이 있는 유저가 있는지 확인
 
