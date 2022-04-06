@@ -1,6 +1,6 @@
-tryCatch = (fn) => {
+tryCatch = (controller) => {
   return (req, res, next) => {
-    fn(req, res, next).catch(next)
+    controller(req, res, next).catch(next)
   };
 };
 
