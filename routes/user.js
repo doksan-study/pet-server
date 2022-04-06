@@ -4,7 +4,7 @@ const tryCatch = require("../middlewares/tryCatch")
 
 const router = Router();
 
-router.post("/signUp", tryCatch(userSignUp));
-router.post("/signIn", tryCatch(userSignIn));
+router.post("/signup", tryCatch(userSignUp));
+router.post("/signin", tryCatch(userSignIn));
 
 module.exports = router;
