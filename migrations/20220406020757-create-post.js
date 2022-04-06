@@ -14,7 +14,7 @@ module.exports = {
       postContent: {
         type: Sequelize.STRING
       },
-      postImage: {
+      postImages: {
         type: Sequelize.STRING
       },
       createdAt: {
