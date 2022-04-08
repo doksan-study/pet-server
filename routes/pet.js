@@ -3,12 +3,12 @@ const multer = require('multer');
 
 const router = Router();
 
-const { postWrite } = require("../controllers");
+const { petRegister } = require("../controllers");
 const { isLoggedIn } = require('../middlewares/auth');
 const tryCatch = require("../middlewares/tryCatch");
 
 const upload = multer({ dest: "files/" });
 
-router.post("/write", isLoggedIn, upload.array("postImage"), tryCatch(postWrite));
+router.post("/", isLoggedIn, upload.array("image"), tryCatch(petRegister));
 
 module.exports = router;

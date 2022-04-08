@@ -2,17 +2,20 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Comment extends Model {
+  class comment extends Model {
 
     static associate(models) {
-      this.belongsTo(models.User);
+      this.belongsTo(models.user);
     }
   }
-  Comment.init({
+  comment.init({
     content: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Comment',
+    underscored: true,
+    freezeTableName: true,
+    modelName: 'comment',
+    tableName: 'Comment'
   });
-  return Comment;
+  return comment;
 };

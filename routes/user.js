@@ -9,7 +9,7 @@ const tryCatch = require("../middlewares/tryCatch");
 
 const upload = multer({ dest: "files/" });
 
-router.post("/signup", isNotLoggedIn, upload.single("userProfileImg"), tryCatch(userSignUp));
-router.post("/signin", isNotLoggedIn, tryCatch(userSignIn));
+router.post("/", isNotLoggedIn, upload.single("userProfileImg"), tryCatch(userSignUp));
+router.post("/login", isNotLoggedIn, tryCatch(userSignIn));
 
 module.exports = router;

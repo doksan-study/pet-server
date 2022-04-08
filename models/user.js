@@ -2,15 +2,15 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class user extends Model {
 
     static associate(models) {
-      this.hasMany(models.Post);
-      this.hasMany(models.Comment);
-      this.hasMany(models.Pet);
+      this.hasMany(models.post);
+      this.hasMany(models.comment);
+      this.hasMany(models.pet);
     }
   }
-  User.init({
+  user.init({
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
@@ -22,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     age: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'User',
+    underscored: true,
+    freezeTableName: true,
+    modelName: 'user',
+    tableName: 'User',
   });
-  return User;
+  return user;
 };

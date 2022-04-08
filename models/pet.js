@@ -2,13 +2,13 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  class Pet extends Model {
+  class pet extends Model {
 
     static associate(models) {
-      this.belongsTo(models.User);
+      this.belongsTo(models.user);
     }
   }
-  Pet.init({
+  pet.init({
     image: DataTypes.STRING,
     find_place: DataTypes.STRING,
     find_date: DataTypes.DATE,
@@ -21,7 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     finder_phone: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Pet',
+    underscored: true,
+    freezeTableName: true,
+    modelName: 'pet',
+    tableName: 'Pet',
   });
-  return Pet;
+  return pet;
 };
