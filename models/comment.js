@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Comment.init({
-    commentContent: DataTypes.STRING
+    content: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Comment',

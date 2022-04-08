@@ -1,49 +1,50 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('User', {
+    await queryInterface.createTable('Pet', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      image: {
+        type: Sequelize.STRING
+      },
+      find_place: {
+        type: Sequelize.STRING
+      },
+      find_date: {
+        type: Sequelize.DATE
+      },
       name: {
         type: Sequelize.STRING
       },
-      email: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      password: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      nickname: {
-        type: Sequelize.STRING
-      },
-      phone: {
-        type: Sequelize.STRING
-      },
-      profile_image: {
+      breed: {
         type: Sequelize.STRING
       },
       gender: {
         type: Sequelize.STRING
       },
-      address: {
+      specificity: {
         type: Sequelize.STRING
       },
       age: {
         type: Sequelize.INTEGER
       },
-      created_at: {
+      height: {
+        type: Sequelize.INTEGER
+      },
+      finder_phone: {
+        type: Sequelize.STRING
+      },
+      create_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('User');
+    await queryInterface.dropTable('Pet');
   }
 };
