@@ -1,25 +1,37 @@
 module.exports = {
-  notMatchEmail: {
-    status: 401,
-    code: "CMP401100",
-    messsage: "이메일을 확인해주세요."
+  notMatchEmail: (res) => {
+    return res.status(401).send({
+      message: "이메일을 확인해주세요.",
+      data: {
+        errorCode: "CMP401100"
+      }
+    })
   },
 
-  notMatchPassword: {
-    statuss: 401,
-    code: "CMP401101",
-    message: "비밀번호가 틀렸습니다."
+  notMatchPassword: (res) => {
+    return res.status(401).send({
+      message: "비밀번호가 틀렸습니다.",
+      data: {
+        errorCode: "CMP401101",
+      }
+    })
   },
 
-  emailExists: {
-    status: 409,
-    code: "CMP409100",
-    message: "중복되는 이메일이 존재합니다."
+  emailExists: (res) => {
+    return res.status(409).send({
+      message: "중복되는 이메일이 존재합니다.",
+      data: {
+        errorCode: "CMP409100",
+      }
+    })
   },
 
-  unknownError: {
-    status: 500,
-    code: "CMP000000",
-    message: "오류가 발생하였습니다."
+  unknownError: (res) => {
+    return res.status(500).send({
+      message: "오류가 발생하였습니다.",
+      data: {
+        errorCode: "CMP000000",
+      }
+    })
   }
 }
