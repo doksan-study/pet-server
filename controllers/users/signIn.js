@@ -9,7 +9,7 @@ const {
 const {
   notMatchEmail,
   notMatchPassword
-} = require("../../middlewares/error");
+} = require("../../middlewares/errorcode");
 
 module.exports = (async (req, res) => {
   const { userEmail, userPassword } = req.body;
@@ -20,17 +20,12 @@ module.exports = (async (req, res) => {
   });
 
   if (!userInfo) {
-    return res.status(notMatchEmail.status).send({
-      code: notMatchEmail.code,
-      message: notMatchEmail.message
-    })
+    return next(notMatchEmail);
   } else {
     const hash = crypto.SHA256(userPassword, process.env.SALT).toString();
 
     if (hash !== userInfo.password) {
-      return res.status(400).send({
-        message: "비밀번호를 확인해주세요."
-      })
+      return next(notMatchPassword);
     } else {
       const accessToken = generateAccessToken(userInfo);
       const refreshToken = generateRefreshToken(userInfo);

@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class comment extends Model {
@@ -9,13 +9,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   comment.init({
-    content: DataTypes.STRING
+    content: DataTypes.STRING,
+    delete_status: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal("NOW()")
+    }
   }, {
     sequelize,
     underscored: true,
     freezeTableName: true,
-    modelName: 'comment',
-    tableName: 'Comment'
+    timestamps: false,
+    modelName: "comment",
+    tableName: "Comment"
   });
   return comment;
 };

@@ -3,7 +3,7 @@ const crypto = require("crypto-js");
 
 const {
   emailExists
-} = require("../../middlewares/error")
+} = require("../../middlewares/errorcode")
 
 module.exports = (async (req, res) => {
   const { userName, userEmail, userPassword, userNickname, userPhone, userAge, userGender, userAddress } = req.body;
@@ -12,10 +12,7 @@ module.exports = (async (req, res) => {
   const emailCheck = await user.findOne({ where: { email: userEmail } }); //중복되는 이메일이 있는 유저가 있는지 확인
 
   if (emailCheck) {
-    return res.status(emailExists.status).send({
-      code: emailExists.code,
-      message: emailExists.message
-    })
+    return next(emailExists);
   } else {
     const hash = crypto.SHA256(userPassword, process.env.SALT).toString(); //비밀번호 암호화
 

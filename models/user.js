@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class user extends Model {
@@ -20,12 +20,21 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING,
     gender: DataTypes.STRING,
     age: DataTypes.INTEGER,
+    delete_status: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal("NOW()")
+    }
   }, {
     sequelize,
     underscored: true,
     freezeTableName: true,
-    modelName: 'user',
-    tableName: 'User',
+    timestamps: false,
+    modelName: "user",
+    tableName: "User"
   });
   return user;
 };

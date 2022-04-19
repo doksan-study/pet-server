@@ -1,27 +1,27 @@
-'use strict';
+"use strict";
 
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.addColumn(
-      'Comment',
-      'user_id',
+      "Comment",
+      "user_id",
       {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'user',
-          key: 'id',
+          model: "user",
+          key: "id",
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       }
     );
   },
 
   async down(queryInterface, Sequelize) {
     await queryInterface.removeColumn(
-      'Comment',
-      'user_id',
+      "Comment",
+      "user_id",
     );
   }
 };

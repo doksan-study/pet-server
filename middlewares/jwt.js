@@ -1,26 +1,28 @@
 require("dotenv").config();
 const { sign, verify } = require("jsonwebtoken");
 const jwt = require("jsonwebtoken");
+const {
+  invalidToken,
+  expireToken
+} = require("./errorcode");
 
 module.exports = {
   generateAccessToken: (data) => {
-    return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1h" });
+    return sign(data, process.env.ACCESS_SALT);
   },
 
   generateRefreshToken: (data) => {
-    return sign(data, process.env.REFRESH_SECRET, { expiresIn: "2h" });
+    return sign(data, process.env.REFRESH_SALT);
   },
 
   sendToken: (res, accessToken, refreshToken) => {
     return res
       .status(200)
       .cookie("refreshToken", refreshToken, {
-        sameSite: "none",
-        secure: true,
-        httpOnly: true,
+        httpOnly: true
       })
       .send({
-        message: "로그인 완료",
+        message: "로그인이 성공했습니다.",
         data: {
           accessToken,
           refreshToken
@@ -28,28 +30,32 @@ module.exports = {
       });
   },
 
-  isAuthorized: (req, res) => {
+  isAuthorized: (req, res, next) => {
     const authorization = req.headers.authorization;
     if (!authorization) {
-      return res.status(401).send({ message: "토큰을 확인해주세요." });
-    } else {
-      const token = authorization.split(" ")[1];
-      const data = jwt.verify(token, process.env.ACCESS_SECRET);
-      if (!data) {
-        return res.status(400).send({ message: "토큰이 없는 잘못된 접근입니다." });
+      return invalidToken
+    }
+    const token = authorization.split(" ")[1];
+    try {
+      const data = jwt.verify(token, process.env.ACCESS_SALT);
+      return data;
+    }
+    catch (err) {
+      if (err.message === "jwt expired") {
+        return expireToken
       } else {
-        return data;
+        return invalidToken
       }
     }
   },
 
   checkRefreshToken: (refreshToken) => {
-    return verify(refreshToken, process.env.REFRESH_SECRET);
+    return verify(refreshToken, process.env.REFRESH_SALT);
   },
 
   resendAccessToken: (res, accessToken) => {
     return res.status(200).send({
-      message: "accessToken 재발급 완료",
+      message: "재발급 완료했습니다.",
       data: {
         accessToken
       }
