@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class pet extends Model {
 
     static associate(models) {
-      this.belongsTo(models.user);
+      this.belongsTo(models.user); // 1 : N (user : pet)
     }
   }
   pet.init({
