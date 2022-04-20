@@ -12,8 +12,8 @@ module.exports = {
           model: "user",
           key: "id",
         },
-        onUpdate: "CASCADE", // 
-        onDelete: "CASCADE", // 
+        onUpdate: "CASCADE", // 부모 필드가 업데이트되면 같이 업데이트
+        onDelete: "CASCADE", // 부모 필드가 삭제되면 같이 삭제
       }
     );
   },

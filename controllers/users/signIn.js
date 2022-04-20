@@ -1,4 +1,4 @@
-const { User } = require("../../models");
+const { user } = require("../../models");
 const crypto = require("crypto-js");
 
 const {
@@ -14,7 +14,7 @@ const {
 module.exports = (async (req, res) => {
   const { userEmail, userPassword } = req.body;
 
-  const userInfo = await User.findOne({
+  const userInfo = await user.findOne({
     where: { email: userEmail },
     raw: true
   });
