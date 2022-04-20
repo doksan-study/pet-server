@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     created_at: {
       type: DataTypes.DATE,
       defaultValue: sequelize.literal("NOW()")
-    }
+    },
   }, {
     sequelize,
     underscored: true,

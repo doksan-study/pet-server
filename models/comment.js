@@ -24,7 +24,9 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true, // 원하는 테이블 명 true
     timestamps: false, // createdAt, updatedAt 자동 생성 false
     modelName: "comment", // 모델 이름
-    tableName: "Comment" // 테이블 명
+    tableName: "Comment", // 테이블 명
+    charset: "utf8mb4",
+    collate: "utf8mb4_general_ci"
   });
   return comment;
 };
