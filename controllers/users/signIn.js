@@ -1,4 +1,4 @@
-const { User } = require("../../models");
+const { user } = require("../../models");
 const crypto = require("crypto-js");
 
 const {
@@ -9,28 +9,23 @@ const {
 const {
   notMatchEmail,
   notMatchPassword
-} = require("../../middlewares/error");
+} = require("../../middlewares/errorcode");
 
 module.exports = (async (req, res) => {
   const { userEmail, userPassword } = req.body;
 
-  const userInfo = await User.findOne({
+  const userInfo = await user.findOne({
     where: { email: userEmail },
     raw: true
   });
 
   if (!userInfo) {
-    return res.status(notMatchEmail.status).send({
-      code: notMatchEmail.code,
-      message: notMatchEmail.message
-    })
+    return next(notMatchEmail);
   } else {
     const hash = crypto.SHA256(userPassword, process.env.SALT).toString();
 
     if (hash !== userInfo.password) {
-      return res.status(400).send({
-        message: "비밀번호를 확인해주세요."
-      })
+      return next(notMatchPassword);
     } else {
       const accessToken = generateAccessToken(userInfo);
       const refreshToken = generateRefreshToken(userInfo);
