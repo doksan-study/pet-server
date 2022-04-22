@@ -38,6 +38,10 @@ module.exports = {
       finder_phone: {
         type: Sequelize.STRING
       },
+      delete_status: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       create_at: {
         allowNull: false,
         type: Sequelize.DATE

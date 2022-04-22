@@ -8,11 +8,11 @@ const {
 
 module.exports = {
   generateAccessToken: (data) => {
-    return sign(data, process.env.ACCESS_SALT);
+    return sign(data, process.env.ACCESS_SECRET, { expiresIn: "1m" });
   },
 
   generateRefreshToken: (data) => {
-    return sign(data, process.env.REFRESH_SALT);
+    return sign(data, process.env.REFRESH_SECRET);
   },
 
   sendToken: (res, accessToken, refreshToken) => {
@@ -32,25 +32,22 @@ module.exports = {
 
   isAuthorized: (req, res, next) => {
     const authorization = req.headers.authorization;
-    if (!authorization) {
-      return invalidToken
-    }
     const token = authorization.split(" ")[1];
     try {
-      const data = jwt.verify(token, process.env.ACCESS_SALT);
-      return data;
+      const data = jwt.verify(token, process.env.ACCESS_SECRET);
+      next(data);
     }
     catch (err) {
       if (err.message === "jwt expired") {
-        return expireToken
+        return next(expireToken);
       } else {
-        return invalidToken
+        return next(invalidToken);
       }
     }
   },
 
   checkRefreshToken: (refreshToken) => {
-    return verify(refreshToken, process.env.REFRESH_SALT);
+    return verify(refreshToken, process.env.REFRESH_SECRET);
   },
 
   resendAccessToken: (res, accessToken) => {
