@@ -12,17 +12,17 @@ const {
 } = require("../../middlewares/errorcode");
 
 module.exports = (async (req, res) => {
-  const { userEmail, userPassword } = req.body;
+  const { email, password } = req.body;
 
   const userInfo = await user.findOne({
-    where: { email: userEmail },
+    where: { email },
     raw: true
   });
 
   if (!userInfo) {
     return next(notMatchEmail);
   } else {
-    const hash = crypto.SHA256(userPassword, process.env.SALT).toString();
+    const hash = crypto.SHA256(password, process.env.SALT).toString();
 
     if (hash !== userInfo.password) {
       return next(notMatchPassword);
