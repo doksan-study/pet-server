@@ -20,11 +20,9 @@ module.exports = (async (req, res) => {
         age,
         height,
         finderPhone
-        delete_status: 0,
       }
     }
   )
-
 
   return res.status(200).send({
     message: "유기견 공고 수정 완료",
