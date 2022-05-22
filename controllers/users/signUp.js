@@ -16,16 +16,18 @@ module.exports = (async (req, res) => {
   } else {
     const hash = crypto.SHA256(password, process.env.SALT).toString(); //비밀번호 암호화
 
-    await user.create({ //새로운 유저 생성
-      email,
-      password: hash,
-      name,
-      nickname,
-      phone,
-      profile_image: profileImg,
-      age,
-      gender,
-      address
+    await user.findOrCreate({
+      where: { email }, //새로운 유저 생성
+      defaults: {
+        password: hash,
+        name,
+        nickname,
+        phone,
+        profile_image: profileImg,
+        age,
+        gender,
+        address
+      }
     });
     const userInfo = await user.findOne({ //생성된 유저 정보
       where: { email },
